@@ -1,6 +1,6 @@
+from database import initialize_db
 from flask import Flask
 from flask_restful import Api
-from database import initialize_db
 from resources import initialize_routes
 
 app = Flask(__name__)
