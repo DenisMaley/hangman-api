@@ -22,7 +22,7 @@ class Registration(Resource):
             access_token = create_access_token(identity=user_id)
             refresh_token = create_refresh_token(identity=user_id)
             return {
-                       'id': user_id,
+                       'user_id': user_id,
                        'access_token': access_token,
                        'refresh_token': refresh_token,
                    }, HTTPStatus.CREATED
@@ -37,13 +37,14 @@ class Login(Resource):
         if not UserModel.objects(username=data['username']):
             return {'msg': 'User {} doesn\'t exist'.format(data['username'])}, HTTPStatus.BAD_REQUEST
 
-        current_user = UserModel.objects.get(username=data['username'])
+        user = UserModel.objects.get(username=data['username'])
 
-        if UserModel.verify_hash(data['password'], current_user['password']):
-            access_token = create_access_token(identity=data['username'])
-            refresh_token = create_refresh_token(identity=data['username'])
+        if UserModel.verify_hash(data['password'], user.password):
+            user_id = str(user.id)
+            access_token = create_access_token(identity=user_id)
+            refresh_token = create_refresh_token(identity=user_id)
             return {
-                       'msg': 'Logged in as {}'.format(current_user['username']),
+                       'user_id': user_id,
                        'access_token': access_token,
                        'refresh_token': refresh_token
                    }, HTTPStatus.OK
