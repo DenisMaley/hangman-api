@@ -3,14 +3,15 @@ from http import HTTPStatus
 from flask import Response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource
-from models import UserModel, GameModel
+from models import UserModel, GameModel, WordModel
 
 
 class Games(Resource):
     @jwt_required
     def post(self):
         user = UserModel.objects.get(pk=get_jwt_identity())
-        game = GameModel(author=user).save()
+        word = WordModel.get_random_word()
+        game = GameModel(author=user, word=word).save()
 
         return Response(game.to_json(), mimetype="application/json", status=HTTPStatus.OK)
 

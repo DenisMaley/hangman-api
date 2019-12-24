@@ -1,4 +1,5 @@
 from database import initialize_db
+from migrations import set_up_db
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
@@ -14,6 +15,7 @@ app.config['MONGODB_SETTINGS'] = {
 
 jwt = JWTManager(app)
 initialize_db(app)
+set_up_db()
 initialize_routes(api)
 
 if __name__ == '__main__':
