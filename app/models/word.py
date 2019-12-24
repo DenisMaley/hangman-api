@@ -4,7 +4,7 @@ from database import db
 
 
 class WordModel(db.Document):
-    word = db.StringField(required=True)
+    value = db.StringField(required=True)
 
     @staticmethod
     def get_random_word():
