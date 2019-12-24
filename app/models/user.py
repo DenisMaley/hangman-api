@@ -1,13 +1,10 @@
 from database import db
 from passlib.hash import pbkdf2_sha256 as sha256
 
-from .game import GameModel
-
 
 class UserModel(db.Document):
     username = db.StringField(required=True, unique=True)
     password = db.StringField(required=True)
-    games = db.EmbeddedDocumentListField(GameModel)
 
     @staticmethod
     def generate_hash(password):
