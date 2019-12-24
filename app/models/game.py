@@ -11,7 +11,7 @@ from .word import WordModel
 class GameModel(db.Document):
     author = db.ReferenceField(UserModel, required=True)
     word = db.ReferenceField(WordModel, required=True)
-    named_letters = db.ListField(db.StringField)
+    named_letters = db.ListField()
     lives = db.IntField(default=LIVES)
     start_timestamp = db.DateTimeField(default=datetime.datetime.now)
 
@@ -29,7 +29,7 @@ class GameModel(db.Document):
     def to_json(self, *args, **kwargs):
         use_db_field = kwargs.pop("use_db_field", False)
 
-        default_fields = ['lives']
+        default_fields = ['lives', 'named_letters']
         fields = kwargs.pop("fields", default_fields)
 
         bson_game = self.to_mongo(use_db_field, fields)
