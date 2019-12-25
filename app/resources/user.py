@@ -11,4 +11,4 @@ class User(Resource):
     def get(self):
         user = UserModel.objects.get(pk=get_jwt_identity())
 
-        return Response(user.to_json(), mimetype="application/json", status=HTTPStatus.OK)
+        return user.serialize(), HTTPStatus.OK

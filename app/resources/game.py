@@ -13,7 +13,7 @@ class Games(Resource):
         word = WordModel.get_random_word()
         game = GameModel(author=user, word=word).save()
 
-        return Response(game.to_json(), mimetype="application/json", status=HTTPStatus.OK)
+        return game.serialize(), HTTPStatus.CREATED
 
 
 class Game(Resource):
@@ -21,7 +21,8 @@ class Game(Resource):
     def get(self, game_id):
         game = GameModel.objects.get(pk=game_id)
 
-        return Response(game.to_json(), mimetype="application/json", status=HTTPStatus.OK)
+        return game.serialize(), HTTPStatus.OK
+
 
 class GameTurn(Resource):
     @jwt_required
@@ -31,4 +32,4 @@ class GameTurn(Resource):
         game.named_letters.append(data['letter'])
         game.save()
 
-        return Response(game.to_json(), mimetype="application/json", status=HTTPStatus.OK)
+        return game.serialize(), HTTPStatus.CREATED

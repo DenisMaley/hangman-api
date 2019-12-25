@@ -1,6 +1,5 @@
 import datetime
 
-from bson import json_util
 from database import db
 from settings import LIVES, PLACEHOLDER
 
@@ -26,13 +25,10 @@ class GameModel(db.Document):
 
         return ' '.join(symbols)
 
-    def to_json(self, *args, **kwargs):
-        use_db_field = kwargs.pop("use_db_field", False)
-
-        default_fields = ['lives', 'named_letters']
-        fields = kwargs.pop("fields", default_fields)
-
-        bson_game = self.to_mongo(use_db_field, fields)
-        bson_game['disguised_word'] = self.get_disguised_word()
-
-        return json_util.dumps(bson_game, *args, **kwargs)
+    def serialize(self):
+        return {
+            'id': str(self.id),
+            'lives': self.lives,
+            'named_letters': self.named_letters,
+            'disguised_word': self.get_disguised_word(),
+        }
