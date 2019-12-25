@@ -25,6 +25,15 @@ class GameModel(db.Document):
 
         return ' '.join(symbols)
 
+    def make_turn(self, letter):
+        letter = letter.upper()
+        self.named_letters.append(letter)
+
+        if letter not in self.word.value:
+            self.lives -= 1
+
+        self.save()
+
     def serialize(self):
         return {
             'id': str(self.id),

@@ -29,7 +29,6 @@ class GameTurn(Resource):
     def post(self, game_id):
         data = request.get_json()
         game = GameModel.objects.get(pk=game_id)
-        game.named_letters.append(data['letter'])
-        game.save()
+        game.make_turn(data['letter'])
 
         return game.serialize(), HTTPStatus.CREATED
