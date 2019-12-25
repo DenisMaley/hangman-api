@@ -12,7 +12,8 @@ class GameModel(db.Document):
     word = db.ReferenceField(WordModel, required=True)
     named_letters = db.ListField()
     lives = db.IntField(min_value=0, max_value=LIVES, default=LIVES)
-    start_timestamp = db.DateTimeField(default=datetime.datetime.now)
+    start_timestamp = db.DateTimeField(default=datetime.datetime.utcnow)
+    finish_timestamp = db.DateTimeField()
 
     def get_disguised_word(self):
         symbols = []
@@ -30,6 +31,9 @@ class GameModel(db.Document):
 
     def get_named_letters_set(self):
         return set(self.named_letters)
+
+    def is_finished(self):
+        return self.is_succeeded() or self.is_failed()
 
     def is_succeeded(self):
         return self.get_word_letters_set() <= self.get_named_letters_set()
@@ -55,13 +59,22 @@ class GameModel(db.Document):
         if letter not in self.word.value:
             self.lives -= 1
 
+        if self.is_finished() and not self.finish_timestamp:
+            self.finish_timestamp = datetime.datetime.utcnow()
+
         self.save()
 
     def serialize(self):
-        return {
+        serialization = {
             'id': str(self.id),
             'lives': self.lives,
             'named_letters': self.named_letters,
             'disguised_word': self.get_disguised_word(),
             'state': self.get_state(),
+            'started_at': str(self.start_timestamp),
         }
+
+        if self.finish_timestamp:
+            serialization['finished_at'] = str(self.finish_timestamp)
+
+        return serialization
