@@ -14,6 +14,7 @@ class GameModel(db.Document):
     lives = db.IntField(min_value=0, max_value=LIVES, default=LIVES)
     start_timestamp = db.DateTimeField(default=datetime.datetime.utcnow)
     finish_timestamp = db.DateTimeField()
+    score = db.IntField(min_value=0, max_value=100, default=0)
 
     def get_disguised_word(self):
         symbols = []
@@ -31,6 +32,11 @@ class GameModel(db.Document):
 
     def get_named_letters_set(self):
         return set(self.named_letters)
+
+    def get_guessed_letters_set(self):
+        word_letters = self.get_word_letters_set()
+        named_letters = self.get_named_letters_set()
+        return word_letters.intersection(named_letters)
 
     def is_finished(self):
         return self.is_succeeded() or self.is_failed()
@@ -52,6 +58,13 @@ class GameModel(db.Document):
         elif self.is_pending():
             return 'IN PROGRESS'
 
+    def get_score(self):
+        score_parts = [
+            self.lives / LIVES,
+            len(self.get_guessed_letters_set()) / len(self.get_word_letters_set())
+        ]
+        return sum(score_parts) / len(score_parts) * 100
+
     def make_turn(self, letter):
         letter = letter.upper()
         self.named_letters.append(letter)
@@ -61,6 +74,7 @@ class GameModel(db.Document):
 
         if self.is_finished() and not self.finish_timestamp:
             self.finish_timestamp = datetime.datetime.utcnow()
+            self.score = self.get_score()
 
         self.save()
 
@@ -72,6 +86,7 @@ class GameModel(db.Document):
             'disguised_word': self.get_disguised_word(),
             'state': self.get_state(),
             'started_at': str(self.start_timestamp),
+            'score': self.get_score(),
         }
 
         if self.finish_timestamp:
