@@ -1,6 +1,6 @@
 from database import db
-from passlib.hash import pbkdf2_sha256 as sha256
 from flask_jwt_extended import create_access_token, create_refresh_token
+from passlib.hash import pbkdf2_sha256 as sha256
 
 
 class UserModel(db.Document):

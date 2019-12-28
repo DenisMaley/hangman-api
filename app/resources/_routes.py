@@ -1,7 +1,7 @@
+from .auth import Registration, Login
+from .game import Games, Game, GameTurn
 from .status import Status
 from .user import User
-from .game import Games, Game, GameTurn
-from .auth import Registration, Login
 
 
 def initialize_routes(api):

@@ -1,9 +1,9 @@
 from database import initialize_db
-from migrations import set_up_db
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
+from migrations import set_up_db
 from resources import initialize_routes
 
 app = Flask(__name__)
