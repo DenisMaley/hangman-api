@@ -3,4 +3,5 @@ flask_restful
 flask_mongoengine
 flask-jwt-extended
 flask-cors
+flasgger
 passlib
