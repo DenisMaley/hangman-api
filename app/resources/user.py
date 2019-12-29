@@ -10,7 +10,7 @@ class User(Resource):
     def get(self):
         """
             This is the User API
-            Call this api and get back logged in user
+            Call this api and get back the user - owner of the token
             ---
             tags:
               - User API

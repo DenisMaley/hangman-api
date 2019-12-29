@@ -59,11 +59,14 @@ class GameModel(db.Document):
             return 'IN PROGRESS'
 
     def get_score(self):
-        score_parts = [
-            self.lives / LIVES,
-            len(self.get_guessed_letters_set()) / len(self.get_word_letters_set())
-        ]
-        return sum(score_parts) / len(score_parts) * 100
+        score = 0
+        if self.is_finished():
+            score_parts = [
+                self.lives / LIVES,
+                len(self.get_guessed_letters_set()) / len(self.get_word_letters_set())
+            ]
+            score = sum(score_parts) / len(score_parts) * 100
+        return score
 
     def make_turn(self, letter):
         letter = letter.upper()

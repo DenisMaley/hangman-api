@@ -39,6 +39,7 @@ class Login(Resource):
 
 
 class Logout(Resource):
+    # TODO: implement logout: get rid of tokens
     def post(self):
         pass
 
