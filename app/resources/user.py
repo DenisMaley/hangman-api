@@ -9,8 +9,8 @@ class User(Resource):
     @jwt_required
     def get(self):
         """
-            This is the User API
-            Call this api and get back the user - owner of the token
+            Retrieve User
+            Returns the user model by the access token
             ---
             tags:
               - User API
@@ -18,7 +18,7 @@ class User(Resource):
               500:
                 description: Internal Server Error
               200:
-                description: A user with its details
+                description: The user was successfully returned
                 schema:
                   id: user
                   properties:

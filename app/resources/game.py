@@ -10,8 +10,8 @@ class Games(Resource):
     @jwt_required
     def post(self):
         """
-            This is the Game API
-            Call this api and get back a new game
+            Create Game
+            Creates a new game and returns it`s model
             ---
             tags:
               - Games API
@@ -66,8 +66,8 @@ class Game(Resource):
     @jwt_required
     def get(self, game_id):
         """
-            This is the Game API
-            Call this api and get back the certain game
+            Retrieve Game
+            Returns the game model in the current condition
             ---
             tags:
               - Games API
@@ -81,7 +81,7 @@ class Game(Resource):
               500:
                 description: Internal Server Error
               200:
-                description: A new game was created
+                description: The game was successfully returned
                 schema:
                   id: game
         """
@@ -94,8 +94,8 @@ class GameTurn(Resource):
     @jwt_required
     def post(self, game_id):
         """
-            This is the Game API
-            Call this api and get back the certain game
+            Create Game Turn
+            Saves the certain game turn and returns the game model with the turn applied
             ---
             tags:
               - Games API
@@ -109,7 +109,7 @@ class GameTurn(Resource):
                 in: body
                 required: true
                 schema:
-                  id: letter
+                  id: turn
                   required:
                     - name
                   properties:
@@ -121,7 +121,7 @@ class GameTurn(Resource):
               500:
                 description: Internal Server Error
               200:
-                description: A new game was created
+                description: The turn was successfully saved
                 schema:
                   id: game
         """
