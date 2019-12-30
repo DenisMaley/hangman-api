@@ -42,13 +42,13 @@ class GameModel(db.Document):
         return self.is_succeeded() or self.is_failed()
 
     def is_succeeded(self):
-        return self.get_word_letters_set() <= self.get_named_letters_set()
+        return self.lives > 0 and self.get_word_letters_set() <= self.get_named_letters_set()
 
     def is_failed(self):
         return self.lives == 0
 
     def is_pending(self):
-        return self.lives > 0 and not self.is_succeeded()
+        return not self.is_finished()
 
     def get_state(self):
         if self.is_failed():
