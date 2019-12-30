@@ -111,7 +111,7 @@ class GameTurn(Resource):
                 schema:
                   id: turn
                   required:
-                    - name
+                    - letter
                   properties:
                     letter:
                       type: string
