@@ -95,4 +95,4 @@ General ideas:
 [Swagger]: http://localhost:5000/apidocs/
 [JSONSchema]: https://json-schema.org/
 [FastJSONSchema]: https://horejsek.github.io/python-fastjsonschema/
-[Client]: https://github.com/DenisMaley/triplanner-vue-client
+[Client]: https://github.com/DenisMaley/hangman-vue-client
