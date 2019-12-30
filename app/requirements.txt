@@ -1,6 +1,7 @@
 Flask
 flask_restful
 flask_mongoengine
+mongomock
 flask-jwt-extended
 flask-cors
 flasgger

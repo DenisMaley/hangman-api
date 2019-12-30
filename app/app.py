@@ -16,7 +16,7 @@ api = Api(app, '/api')
 
 app.config['JWT_SECRET_KEY'] = 'app-jwt-secret-string'
 app.config['MONGODB_SETTINGS'] = {
-    'host': 'mongodb://my_db:27017'
+    'host': 'mongodb://app_db:27017'
 }
 
 jwt = JWTManager(app)
