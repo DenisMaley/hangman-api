@@ -69,7 +69,7 @@ For the main endpoints use `access_token` as Bearer token for authorization:
 ## Tests
 To run all tests
 ```bash
-docker-compose run app python -m unittest discover -s tests
+docker-compose run app python -W ignore:docker-compose run app python -W ignore:DeprecationWarning -m unittest discover -s tests -m unittest discover -s tests
 ```
 
 ## Client setup
