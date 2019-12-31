@@ -67,9 +67,9 @@ For the main endpoints use `access_token` as Bearer token for authorization:
 ![Postman screenshot](https://i.gyazo.com/98ab3dbe0cb2606934297a1aa60e363a.png)
 
 ## Tests
-To run all tests
+To run all tests (after build)
 ```bash
-docker-compose run app python -W ignore:docker-compose run app python -W ignore:DeprecationWarning -m unittest discover -s tests -m unittest discover -s tests
+docker-compose run app python -W ignore:DeprecationWarning -m unittest discover -s tests
 ```
 
 ## Client setup
